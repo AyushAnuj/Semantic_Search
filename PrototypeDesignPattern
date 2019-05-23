@@ -1,0 +1,11 @@
+Prototype Design Pattern:
+
+. Prototype Pattern says that cloning of an existing object instead of creating new one and can also be customized as per the requirement.
+
+. This pattern should be followed, if the cost of creating a new object is expensive and resource intensive.
+
+. Prototype allows us to hide the complexity of making new instances from the client.
+
+.  Prototype patterns is required, when object creation is time consuming, and costly operation, so we create object with existing object itself.
+
+. 

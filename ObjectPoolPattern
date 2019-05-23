@@ -1,0 +1,21 @@
+Object Pool Pattern:
+
+. Object Pool Pattern says that " to reuse the object that are expensive to create".
+
+. An Object pool is a container which contains a specified amount of objects. When an object is taken from the pool, it is not available in the pool until it is put back.
+
+. Objects in the pool have a lifecycle: creation, validation and destroy.
+. When there are several clients who need the same resource at different times.
+
+. Examples:
+	. data source pools.
+	. Thread pools.
+
+. Advantage:
+	. It boosts the performance of the application significantly.
+	. It is most effective in a situation where the rate of initializing a class instance is high.
+	. It manages the connections and provides a way to reuse and share them.
+	. It can also provide the limit for the maximum number of objects that can be created.
+
+
+. 
