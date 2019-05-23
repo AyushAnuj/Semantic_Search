@@ -1,0 +1,108 @@
+Abstract Factory Design
+
+. Abstract Factory Pattern says that just define an interface or abstract class for creating families of related (or dependent) objects but without specifying their concrete sub-classes.
+
+. That means Abstract Factory lets a class returns a factory of classes. So, this is the reason that Abstract Factory Pattern is one level higher than the Factory Pattern.
+
+. Advantages:
+	. Abstract Factory Pattern isolates the client code from concrete (implementation) classes.
+		. It eases the exchanging of object families.
+		. It promotes consistency among objects.
+
+.Example:
+	. interface Bank(){
+		String getBankName();
+	}
+	. class HDFC implements Bank{  
+     	private final String BNAME;  
+     	public HDFC(){  
+            BNAME="HDFC BANK";  
+    	}  
+    	public String getBankName() {  
+            return BNAME;  
+    	}  
+	}	 
+	. abstract class Loan{
+		protected double rate;  
+			abstract void getInterestRate(double rate);
+		public void calculateLoanPayment(double loanamount, int years) {
+			double EMI;  
+	        int n;  
+	  
+	        n=years*12;  
+	        rate=rate/1200;  
+	        EMI=((rate*Math.pow((1+rate),n))/((Math.pow((1+rate),n))-1))*loanamount;
+		}
+	}
+
+	. class HomeLoan extends Loan{  
+		public void getInterestRate(double r){  
+     		rate=r;  
+		}  
+	}
+
+	. abstract class AbstractFactory {  
+			public abstract Bank getBank(String bank);  
+			public abstract Loan getLoan(String loan);  
+	}
+
+	. class BankFactory extends AbstractFactory{  
+  		public Bank getBank(String bank){  
+      		if(bank == null){  
+         		return null;  
+      		}  
+      		if(bank.equalsIgnoreCase("HDFC")){  
+         		return new HDFC();  
+      		} else if(bank.equalsIgnoreCase("ICICI")){  
+         		return new ICICI();  
+      		} else if(bank.equalsIgnoreCase("SBI")){  
+         		return new SBI();  
+      		}  
+      		return null;  
+   		}  
+  		public Loan getLoan(String loan) {  
+      		return null;  
+   		}
+   	}
+
+   	. class LoanFactory extends AbstractFactory{  
+        public Bank getBank(String bank){  
+            return null;  
+        }  
+        
+	    public Loan getLoan(String loan){  
+		    if(loan == null){  
+		        return null;  
+		    }  
+		    if(loan.equalsIgnoreCase("Home")){  
+		        return new HomeLoan();  
+		    } else if(loan.equalsIgnoreCase("Business")){  
+		        return new BussinessLoan();  
+		    } else if(loan.equalsIgnoreCase("Education")){  
+		        return new EducationLoan();  
+		    }  
+	    	return null;  
+	   	}  
+	}  
+
+	. class FactoryCreator {  
+     	public static AbstractFactory getFactory(String choice){  
+	      	if(choice.equalsIgnoreCase("Bank")){  
+	         	return new BankFactory();  
+	      	} else if(choice.equalsIgnoreCase("Loan")){  
+	        	 return new LoanFactory();  
+	      	}  
+	      	return null;  
+   		}
+	}
+
+	. class AbstractFactoryPatternExample {
+		public static void main(String args[])throws IOException {
+			AbstractFactory bankFactory = FactoryCreator.getFactory("Bank");  
+			Bank b=bankFactory.getBank(bankName);
+			AbstractFactory loanFactory = FactoryCreator.getFactory("Loan");  
+           	Loan l=loanFactory.getLoan(loanName);  
+           	l.getInterestRate(rate);  
+           	l.calculateLoanPayment(loanAmount,years);    
+		}
+	}
